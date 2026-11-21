@@ -119,9 +119,11 @@ export function updateGuard(guard, dt, player, solids, events) {
     if (wasCalm && guard.alert >= 0.35) events.push('suspicious');
     if (guard.alert >= 0.75) guard.state = 'investigate';
     turnToward(guard, Math.atan2(player.y - guard.y, player.x - guard.x), dt * 2.2);
-  } else {
-    guard.alert = Math.max(0, guard.alert - dt * 0.5);
+    // A guard that can see the courier stops and stares: it does not keep
+    // walking its patrol while the detection meter fills.
+    return;
   }
+  guard.alert = Math.max(0, guard.alert - dt * 0.5);
 
   if (guard.state === 'investigate' && guard.lastSeen && !sight.seen) {
     const arrived = moveToward(guard, guard.lastSeen.x, guard.lastSeen.y, dt);

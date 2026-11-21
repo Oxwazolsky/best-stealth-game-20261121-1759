@@ -302,9 +302,10 @@ export function drawWorld(ctx, state, cam, time) {
   drawFloor(ctx, state.level, cam);
   drawExit(ctx, state.level, cam, time, state.packageTaken);
   drawPackage(ctx, state.level, cam, state.packageTaken, time);
+  // Cones first: walls and crates drawn over them read as blocking the sight.
+  for (const guard of state.guards) drawCone(ctx, guard, cam);
   drawCrates(ctx, state.level, cam);
   drawWalls(ctx, state.level, cam);
-  for (const guard of state.guards) drawCone(ctx, guard, cam);
   for (const guard of state.guards) drawGuard(ctx, guard, cam);
   drawPlayer(ctx, state.player, cam, time);
   drawLighting(ctx, state, cam);

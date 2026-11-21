@@ -80,14 +80,13 @@ function onCaught() {
 
 function onLevelClear() {
   AudioSys.successChime();
+  const clearedName = state.level.name;
   if (state.levelIndex + 1 >= LEVELS.length) {
     state.screen = 'win';
     return;
   }
-  state.banner = `${state.level.name} — CLEAR!`;
-  state.bannerTimer = 1.4;
   loadLevel(state.levelIndex + 1);
-  state.banner = `${state.level.name} — CLEAR!`;
+  state.banner = `${clearedName} — CLEAR!`;
   state.bannerTimer = 1.4;
 }
 
@@ -179,8 +178,8 @@ function applyScene(name) {
     state.player.sneaking = true;
     const guard = state.guards[0];
     guard.x = 790;
-    guard.y = 430;
-    guard.angle = 2.15;
+    guard.y = 480;
+    guard.angle = 2.36;
     guard.alert = 0.82;
     guard.state = 'investigate';
     guard.lastSeen = { x: state.player.x, y: state.player.y };
